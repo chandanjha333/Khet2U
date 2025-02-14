@@ -35,3 +35,7 @@ updateHeader();
 document.querySelector('.login-button-js').onclick = () => {
   window.location.href = 'login-page.html'
 }
+
+document.querySelector('.signup-button-js').onclick = () => {
+  window.location.href = 'signup.html'
+}

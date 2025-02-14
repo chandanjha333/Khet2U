@@ -71,17 +71,17 @@ button:hover {
   background-color: #45a049;
 }
 
-.signup-link {
+.login-link {
   text-align: center;
   margin-top: 1rem;
 }
 
-.signup-link a {
+.login-link a {
   color: #4CAF50;
   text-decoration: none;
 }
 
-.signup-link a:hover {
+.login-link a:hover {
   text-decoration: underline;
 }
 
@@ -91,4 +91,10 @@ button:hover {
 
 .form-container.active {
   display: block;
+}
+
+.password-requirements {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
 }

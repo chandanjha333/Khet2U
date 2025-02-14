@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/signup.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('consumer')">Consumer Signup</div>
+        <div class="tab" onclick="switchTab('farmer')">Farmer Signup</div>
+      </div>
+
+      <div id="consumerForm" class="form-container active">
+        <form onsubmit="handleSignup(event, 'consumer')">
+          <div class="form-group">
+            <label for="consumerName">Full Name</label>
+            <input type="text" id="consumerName" required>
+          </div>
+          <div class="form-group">
+            <label for="consumerEmail">Email</label>
+            <input type="email" id="consumerEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="consumerPhone">Phone Number</label>
+            <input type="tel" id="consumerPhone" required>
+          </div>
+          <div class="form-group">
+            <label for="consumerPassword">Password</label>
+            <input type="password" id="consumerPassword" 
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+              required>
+            <div class="password-requirements">
+              Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="consumerConfirmPassword">Confirm Password</label>
+            <input type="password" id="consumerConfirmPassword" required>
+          </div>
+          <button type="submit">Sign Up as Consumer</button>
+        </form>
+      </div>
+
+      <div id="farmerForm" class="form-container">
+        <form onsubmit="handleSignup(event, 'farmer')">
+          <div class="form-group">
+            <label for="farmerName">Full Name</label>
+            <input type="text" id="farmerName" required>
+          </div>
+          <div class="form-group">
+            <label for="farmerEmail">Email</label>
+            <input type="email" id="farmerEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="farmerPhone">Phone Number</label>
+            <input type="tel" id="farmerPhone" required>
+          </div>
+          <div class="form-group">
+            <label for="farmerLocation">Farm Location</label>
+            <input type="text" id="farmerLocation" required>
+          </div>
+          <div class="form-group">
+            <label for="farmerPassword">Password</label>
+            <input type="password" id="farmerPassword" 
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+              required>
+            <div class="password-requirements">
+              Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="farmerConfirmPassword">Confirm Password</label>
+            <input type="password" id="farmerConfirmPassword" required>
+          </div>
+          <button type="submit">Sign Up as Farmer</button>
+        </form>
+      </div>
+
+      <div class="login-link">
+        Already have an account? <a href="login-page.html">Login here</a>
+      </div>
+    </div>
+
+    <script src="scripts/signup.js"></script>
+  </body>
+</html>
