@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/loginPage.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('consumer')">Consumer Login</div>
+        <div class="tab" onclick="switchTab('farmer')">Farmer Login</div>
+      </div>
+
+      <div id="consumerForm" class="form-container active">
+        <form onsubmit="handleLogin(event, 'consumer')">
+          <div class="form-group">
+            <label for="consumerEmail">Email</label>
+            <input type="email" id="consumerEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="consumerPassword">Password</label>
+            <input type="password" id="consumerPassword" required>
+          </div>
+          <button type="submit">Login as Consumer</button>
+        </form>
+      </div>
+
+      <div id="farmerForm" class="form-container">
+        <form onsubmit="handleLogin(event, 'farmer')">
+          <div class="form-group">
+            <label for="farmerEmail">Email</label>
+            <input type="email" id="farmerEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="farmerPassword">Password</label>
+            <input type="password" id="farmerPassword" required>
+          </div>
+          <button type="submit">Login as Farmer</button>
+        </form>
+      </div>
+
+      <div class="signup-link">
+        Don't have an account? <a href="signup.html">Sign up here</a>
+      </div>
+    </div>
+
+    <script src="scripts/loginPage.js"></script>
+  </body>
+</html>
