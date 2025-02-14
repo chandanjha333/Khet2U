@@ -27,10 +27,11 @@
   margin-left: 10px;
 }
 
-.left-section text{
+.text{
   font-size: 34px;
   font-weight: bold;
   color: green;
+  text-decoration: none;
 }
 
 .right-section{

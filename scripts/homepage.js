@@ -39,3 +39,7 @@ document.querySelector('.login-button-js').onclick = () => {
 document.querySelector('.signup-button-js').onclick = () => {
   window.location.href = 'signup.html'
 }
+
+document.querySelector('.explore-button-js').onclick = () => {
+  window.location.href = 'products.html'
+}
