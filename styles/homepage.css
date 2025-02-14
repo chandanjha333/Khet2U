@@ -7,14 +7,72 @@ body{
   width: 100%;
 }
 
+.homepage{
+  position: relative;
+}
+
+.tag-line{
+  position: absolute;
+  top: 200px;
+  left: 30px;
+  width: 600px;
+}
+
+.tag-line h1{
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.explore-button{
+  border: none;
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  margin-left: 15px;
+  font-size: 20px;
+  padding: 15px 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.explore-button:hover {
+  transform: translateY(-1px);
+}
+
+.card-heading{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.card-title h1{
+  margin-bottom: 0px;
+}
+
+.shop-button{
+  background-color: white;
+  color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.shop-button:hover {
+  transform: translateY(-1px);
+}
+
 .scroll-container {
   position: relative;
   padding: 20px;
   max-width: 100%;
   overflow-x: auto;
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .card-container {

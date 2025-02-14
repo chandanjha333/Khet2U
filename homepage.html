@@ -22,7 +22,7 @@
         <text>Khet2U</text>
       </div>
       <div class="middle-section">
-        <a class="home">Home</a>
+        <a href="homepage.html" class="home">Home</a>
         <a class="products">Products</a>
         <a class="contact-us">Contact Us</a>
       </div>
@@ -33,8 +33,23 @@
     </header>
 
     <div class="body">
-      <img class="background-image" src="images/pexels-alejandro-barron-21404-96715.jpg">
-      <p class="tag-line">From Farms to your doorstep, powered by you.</p>
+      <div class="homepage">
+        <img class="background-image" src="images/pexels-alejandro-barron-21404-96715.jpg">
+        <div class="tag-line">
+          <h1>Experience Farm-to-Table Freshness</h1>
+          <button class="explore-button">Explore Now</button>
+        </div> 
+      </div>
+
+      <div class="card-heading">
+        <div class="card-title">
+          <h1>Fresh Farm produce.</h1>
+          <p>Explore our selection of local fresh produce.</p>
+        </div>
+        <div>
+          <button class="shop-button">Shop now</button>
+        </div>
+      </div>
 
       <div class="scroll-container">
         <div class="card-container">
@@ -133,6 +148,23 @@
           });
         }
       }
+
+      const header = document.querySelector('.header');
+        
+        // Function to update header style on scroll
+        function updateHeader() {
+          if (window.scrollY > 50) {
+              header.classList.add('scrolled');
+          } else {
+              header.classList.remove('scrolled');
+          }
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', updateHeader);
+        
+        // Initial check (in case page is refreshed while scrolled)
+        updateHeader();
     </script>
   </body>
 </html>
