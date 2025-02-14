@@ -1,11 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khet2U</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/homepage.css">
+    <link rel="stylesheet" href="styles/header.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="left-section">
+        <text>Khet2U</text>
+      </div>
+      <div class="middle-section">
+        <a class="home">Home</a>
+        <a class="products">Products</a>
+        <a class="contact-us">Contact Us</a>
+      </div>
+      <div class="right-section">
+        <button class="login-button">Log in</button>
+        <button class="signup-button">Sign Up</button>
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="background-image" src="images/pexels-alejandro-barron-21404-96715.jpg">
+      <p class="tag-line">From Farms to your doorstep, powered by you.</p>
+
+      <div class="scroll-container">
+        <div class="card-container">
+        <div class="card">
+          <img src="images/carrot-551661_1280.jpg" alt="Product 1" class="card-image">
+          <div class="card-content">
+            <span class="card-tag">New</span>
+            <h2 class="card-title">Carrots</h2>
+            <p class="card-description">
+              Freshly produced carrots from Punjab, Haryana, West Bengal, etc.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Rs.15/kg</span>
+              <button class="card-button">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/potatoes-2329648_1280.jpg" alt="Product 2" class="card-image">
+          <div class="card-content">
+            <span class="card-tag">Popular</span>
+            <h2 class="card-title">Potatoes</h2>
+            <p class="card-description">
+              Fresh harvested potatoes at lowest price.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Rs.10/kg</span>
+              <button class="card-button">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/wheat-381848_1280.jpg" alt="Product 3" class="card-image">
+          <div class="card-content">
+            <span class="card-tag">Sale</span>
+            <h2 class="card-title">Wheat</h2>
+            <p class="card-description">
+              Buy wheat at low prices directly from farms.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Rs.2 per kg</span>
+              <button class="card-button">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/turmeric-powder-7678634_1280.webp" alt="Product 4" class="card-image">
+          <div class="card-content">
+            <span class="card-tag">Limited</span>
+            <h2 class="card-title">Turmeric powder</h2>
+            <p class="card-description">
+              fresh and pure turmeric powder for your kitchen.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Rs.45/kg</span>
+              <button class="card-button">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/vegetables-7413569_1280.jpg" alt="Product 5" class="card-image">
+          <div class="card-content">
+            <span class="card-tag">Trending</span>
+            <h2 class="card-title">Spinach leaves</h2>
+            <p class="card-description">
+              Fresh and healthy spinach leaves for your kids.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Rs.10/kg</span>
+              <button class="card-button">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <script>
+      function scrollCards(direction) {
+        const container = document.querySelector('.card-container');
+        const scrollAmount = 320; // card width + gap
+        
+        if (direction === 'left') {
+          container.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+          });
+        } else {
+          container.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+          });
+        }
+      }
+    </script>
+  </body>
 </html>
