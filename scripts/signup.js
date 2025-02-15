@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5500/api';
+const API_URL = 'http://localhost:5000/api';
 
 function switchTab(role) {
   // Update tabs
@@ -64,7 +64,7 @@ async function handleSignup(event, role) {
       const data = await response.json();
       // Store token and redirect to login page
       localStorage.setItem('token', data.token);
-      window.location.href = 'loginPage.html';
+      window.location.href = 'login-page.html';
     } else {
       const errorText = await response.text();
       alert(`Error: ${errorText}`);
@@ -74,3 +74,4 @@ async function handleSignup(event, role) {
     alert('An error occurred during signup');
   }
 }
+
