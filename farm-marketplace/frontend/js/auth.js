@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5500/api';
 
 // For signup.html
 async function handleSignup(event, role) {

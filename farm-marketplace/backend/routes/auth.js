@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const router = express.Router();
-const JWT_SECRET = '52958bf14743a2e2c8461ab3ac0e8b59b2ec5764184d88a7115aee1339ecc543fa5c2835f296e9df17ccb7500f891aa1f7b4fc07a2d711fa084e42b0b0c32e65';
+const JWT_SECRET = '01abf825a1ebef8f06cc7a4c3326ebd353c1e19b971bc05f03fdf8013ab057d33438efe81c329f857e63df5d6eff58c8b1e849d643827633c1fbbd71c291abaf';
 
 // Signup Route
 router.post('/signup', async (req, res) => {

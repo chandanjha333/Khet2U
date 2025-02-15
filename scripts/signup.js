@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5500/api';
 
 function switchTab(role) {
   // Update tabs
@@ -19,17 +19,22 @@ function switchTab(role) {
 
 async function handleSignup(event, role) {
   event.preventDefault();
-  
+
   // Get form values
   const name = document.getElementById(`${role}Name`).value;
   const email = document.getElementById(`${role}Email`).value;
   const phone = document.getElementById(`${role}Phone`).value;
   const password = document.getElementById(`${role}Password`).value;
   const confirmPassword = document.getElementById(`${role}ConfirmPassword`).value;
-  
+
   // Password validation
   if (password !== confirmPassword) {
     alert("Passwords don't match!");
+    return;
+  }
+
+  if (password.length < 8) {
+    alert('Password must be at least 8 characters long.');
     return;
   }
 
@@ -39,41 +44,33 @@ async function handleSignup(event, role) {
     email,
     phone,
     password,
-    role
+    role,
   };
 
   if (role === 'farmer') {
     userData.location = document.getElementById('farmerLocation').value;
   }
 
-  // Here you would typically make an API call to your backend
-  console.log('Signing up user:', userData);
-
-  // Add your registration logic here
-  // If successful, redirect to login page
-  // window.location.href = 'login.html';
-
   try {
     const response = await fetch(`${API_URL}/auth/signup`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
-
     if (response.ok) {
-        // Store token
-        localStorage.setItem('token', data.token);
-
-        window.location.href = 'login-page.html';
+      const data = await response.json();
+      // Store token and redirect to login page
+      localStorage.setItem('token', data.token);
+      window.location.href = 'loginPage.html';
     } else {
-        alert(data.message);
+      const errorText = await response.text();
+      alert(`Error: ${errorText}`);
     }
-} catch (error) {
+  } catch (error) {
     console.error('Error:', error);
     alert('An error occurred during signup');
-}
+  }
 }

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5500/api';
 
 function switchTab(role) {
   // Update tabs
@@ -47,12 +47,12 @@ async function handleLogin(event, role) {
         body: JSON.stringify(userData)
     });
 
-    const data = await response.json();
+    
 
     if (response.ok) {
+        const data = await response.json();
         // Store token
         localStorage.setItem('token', data.token);
-
         window.location.href = 'homepage.html';
     } else {
         alert(data.message);
