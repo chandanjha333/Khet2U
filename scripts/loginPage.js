@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:5000/api';
+
 function switchTab(role) {
   // Update tabs
   const tabs = document.querySelectorAll('.tab');
@@ -15,7 +17,7 @@ function switchTab(role) {
   }
 }
 
-function handleLogin(event, role) {
+async function handleLogin(event, role) {
   event.preventDefault();
   
   const email = document.getElementById(`${role}Email`).value;
@@ -29,4 +31,34 @@ function handleLogin(event, role) {
   // Add your authentication logic here
   // If successful, redirect to appropriate dashboard
   // window.location.href = `${role}-dashboard.html`;
+
+  let userData = {
+    email,
+    password,
+    role
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/auth/signin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        // Store token
+        localStorage.setItem('token', data.token);
+
+        window.location.href = 'homepage.html';
+    } else {
+        alert(data.message);
+    }
+} catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred during signup');
+}
 }
