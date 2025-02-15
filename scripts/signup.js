@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:5000/api';
+
 function switchTab(role) {
   // Update tabs
   const tabs = document.querySelectorAll('.tab');
@@ -15,7 +17,7 @@ function switchTab(role) {
   }
 }
 
-function handleSignup(event, role) {
+async function handleSignup(event, role) {
   event.preventDefault();
   
   // Get form values
@@ -50,4 +52,28 @@ function handleSignup(event, role) {
   // Add your registration logic here
   // If successful, redirect to login page
   // window.location.href = 'login.html';
+
+  try {
+    const response = await fetch(`${API_URL}/auth/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        // Store token
+        localStorage.setItem('token', data.token);
+
+        window.location.href = 'login-page.html';
+    } else {
+        alert(data.message);
+    }
+} catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred during signup');
+}
 }
