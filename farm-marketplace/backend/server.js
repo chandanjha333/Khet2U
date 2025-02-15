@@ -1,13 +1,13 @@
-const express = require('express');
-const cors = require('cors');
+import express, { json } from 'express';
+import cors from 'cors';
 const app = express();
 
 // Important: Add CORS before routes
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
 // Test route
-app.get('/api/test', (req, res) => {
+app.get('/api/test', (_req, res) => {
     res.json({ message: 'Backend is working' });
 });
 
