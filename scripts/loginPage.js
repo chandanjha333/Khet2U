@@ -1,6 +1,6 @@
 const API_URL = 'http://localhost:5500/api';
 
-function switchTab(role) {
+function switchTab(role, event) {
   // Update tabs
   const tabs = document.querySelectorAll('.tab');
   tabs.forEach(tab => tab.classList.remove('active'));
@@ -23,14 +23,10 @@ async function handleLogin(event, role) {
   const email = document.getElementById(`${role}Email`).value;
   const password = document.getElementById(`${role}Password`).value;
 
-  // Here you would typically make an API call to your backend
-  console.log(`Attempting to login as ${role}`);
-  console.log('Email:', email);
-  console.log('Password:', password);
-
-  // Add your authentication logic here
-  // If successful, redirect to appropriate dashboard
-  // window.location.href = `${role}-dashboard.html`;
+  if (!email || !password) {
+    alert('Please enter both email and password');
+    return;
+  }
 
   let userData = {
     email,
@@ -39,7 +35,7 @@ async function handleLogin(event, role) {
   };
 
   try {
-    const response = await fetch(`${API_URL}/auth/signin`, {
+    const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -47,18 +43,17 @@ async function handleLogin(event, role) {
         body: JSON.stringify(userData)
     });
 
-    
+    const data = await response.json();
 
     if (response.ok) {
-        const data = await response.json();
-        // Store token
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userRole', role);
         window.location.href = 'homepage.html';
     } else {
-        alert(data.message);
+        alert(data.message || 'Login failed. Please check your credentials.');
     }
-} catch (error) {
+  } catch (error) {
     console.error('Error:', error);
-    alert('An error occurred during signup');
-}
+    alert('An error occurred during login. Please try again.');
+  }
 }

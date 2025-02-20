@@ -8,9 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles/loginPage.css">
@@ -18,8 +15,8 @@
   <body>
     <div class="container">
       <div class="tabs">
-        <div class="tab active" onclick="switchTab('consumer')">Consumer Login</div>
-        <div class="tab" onclick="switchTab('farmer')">Farmer Login</div>
+        <div class="tab active" onclick="switchTab('consumer', event)">Consumer Login</div>
+        <div class="tab" onclick="switchTab('farmer', event)">Farmer Login</div>
       </div>
 
       <div id="consumerForm" class="form-container active">
@@ -55,7 +52,7 @@
       </div>
     </div>
 
-    <script src="scripts/loginPage.js"></script>
     <script src="js/auth.js"></script>
   </body>
 </html>
+

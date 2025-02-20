@@ -40,44 +40,42 @@ router.post('/signup', async (req, res) => {
 
 
 // Login Route
-router.post('/signin', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { email, password, role } = req.body;
 
-        // Check if user exists
-        const user = await User.findOne({ email });
+        // Find user by email and role
+        const user = await User.findOne({ email, role });
         if (!user) {
-            return res.status(400).json({ message: 'User not found. Please sign up first.' });
+            return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        // Validate role
-        if (user.role !== role) {
-            return res.status(400).json({ message: 'Incorrect role selected.' });
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        // Compare hashed passwords
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
-        if (!isPasswordCorrect) {
-            return res.status(400).json({ message: 'Invalid email or password.' });
-        }
-
-        // Generate JWT token for authentication
+        // Create JWT token
         const token = jwt.sign(
-            { id: user._id, role: user.role },
-            JWT_SECRET, // Ensure this is set in your environment variables
-            { expiresIn: '1h' }
+            { userId: user._id, role: user.role },
+            JWT_SECRET,
+            { expiresIn: '24h' }
         );
 
-        // Send response with token & user data
-        res.json({ 
-            message: 'Sign-in successful!', 
-            token, 
-            user: { id: user._id, name: user.name, email: user.email, role: user.role } 
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
         });
 
     } catch (error) {
-        console.error('Sign-in error:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        console.error("Login error:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 

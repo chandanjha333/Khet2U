@@ -1,20 +1,17 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5500/api';
 
-function switchTab(role) {
-  // Update tabs
-  const tabs = document.querySelectorAll('.tab');
-  tabs.forEach(tab => tab.classList.remove('active'));
-  event.target.classList.add('active');
+function switchTab(role, event) {
+    if (!event) return; // Add error handling
+    
+    // Update tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
 
-  // Update forms
-  const forms = document.querySelectorAll('.form-container');
-  forms.forEach(form => form.classList.remove('active'));
-  
-  if (role === 'consumer') {
-    document.getElementById('consumerForm').classList.add('active');
-  } else {
-    document.getElementById('farmerForm').classList.add('active');
-  }
+    // Update forms
+    const forms = document.querySelectorAll('.form-container');
+    forms.forEach(form => form.classList.remove('active'));
+    document.getElementById(`${role}Form`).classList.add('active');
 }
 
 async function handleSignup(event, role) {
@@ -26,6 +23,12 @@ async function handleSignup(event, role) {
   const phone = document.getElementById(`${role}Phone`).value;
   const password = document.getElementById(`${role}Password`).value;
   const confirmPassword = document.getElementById(`${role}ConfirmPassword`).value;
+
+  // Basic validation
+  if (!name || !email || !phone || !password || !confirmPassword) {
+    alert('Please fill in all required fields');
+    return;
+  }
 
   // Password validation
   if (password !== confirmPassword) {
@@ -48,7 +51,12 @@ async function handleSignup(event, role) {
   };
 
   if (role === 'farmer') {
-    userData.location = document.getElementById('farmerLocation').value;
+    const location = document.getElementById('farmerLocation').value;
+    if (!location) {
+      alert('Please enter your location');
+      return;
+    }
+    userData.location = location;
   }
 
   try {
@@ -60,18 +68,16 @@ async function handleSignup(event, role) {
       body: JSON.stringify(userData),
     });
 
+    const data = await response.json();
+
     if (response.ok) {
-      const data = await response.json();
-      // Store token and redirect to login page
-      localStorage.setItem('token', data.token);
+      alert('Signup successful! Please login.');
       window.location.href = 'login-page.html';
     } else {
-      const errorText = await response.text();
-      alert(`Error: ${errorText}`);
+      alert(data.message || 'Signup failed. Please try again.');
     }
   } catch (error) {
     console.error('Error:', error);
-    alert('An error occurred during signup');
+    alert('An error occurred during signup. Please try again.');
   }
 }
-

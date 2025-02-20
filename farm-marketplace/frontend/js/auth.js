@@ -1,6 +1,17 @@
 const API_URL = 'http://localhost:5500/api';
 
-// For signup.html
+function switchTab(role, event) {
+    if (!event) return;
+    
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const forms = document.querySelectorAll('.form-container');
+    forms.forEach(form => form.classList.remove('active'));
+    document.getElementById(`${role}Form`).classList.add('active');
+}
+
 async function handleSignup(event, role) {
     event.preventDefault();
     
@@ -11,13 +22,23 @@ async function handleSignup(event, role) {
     const password = document.getElementById(`${role}Password`).value;
     const confirmPassword = document.getElementById(`${role}ConfirmPassword`).value;
     
-    // Password validation
+    // Validation logic
+    if (!name || !email || !phone || !password || !confirmPassword) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
     if (password !== confirmPassword) {
         alert("Passwords don't match!");
         return;
     }
 
-    // Create user data object
+    if (password.length < 8) {
+        alert('Password must be at least 8 characters long.');
+        return;
+    }
+
+    // Create user data
     let userData = {
         name,
         email,
@@ -27,11 +48,59 @@ async function handleSignup(event, role) {
     };
 
     if (role === 'farmer') {
-        userData.location = document.getElementById('farmerLocation').value;
+        const location = document.getElementById('farmerLocation').value;
+        if (!location) {
+            alert('Please enter your location');
+            return;
+        }
+        userData.location = location;
     }
 
     try {
         const response = await fetch(`${API_URL}/auth/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            mode: 'cors',
+            credentials: 'include',
+            body: JSON.stringify(userData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Signup successful! Please login.');
+            window.location.href = 'login.html';
+        } else {
+            alert(data.message || 'Signup failed. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during signup');
+    }
+}
+
+async function handleLogin(event, role) {
+    event.preventDefault();
+    
+    const email = document.getElementById(`${role}Email`).value;
+    const password = document.getElementById(`${role}Password`).value;
+
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+
+    let userData = {
+        email,
+        password,
+        role
+    };
+
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -42,53 +111,14 @@ async function handleSignup(event, role) {
         const data = await response.json();
 
         if (response.ok) {
-            // Store token
             localStorage.setItem('token', data.token);
-            // Redirect to appropriate dashboard
-            window.location.href = `${role}-dashboard.html`;
+            localStorage.setItem('userRole', role);
+            window.location.href = 'homepage.html';
         } else {
-            alert(data.message);
+            alert(data.message || 'Login failed. Please check your credentials.');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred during signup');
+        alert('An error occurred during login');
     }
-}
-
-// For login.html
-async function handleLogin(event, role) {
-  event.preventDefault();
-  
-  const email = document.getElementById(`${role}Email`).value;
-  const password = document.getElementById(`${role}Password`).value;
-
-  console.log('Attempting login with:', { email, password, role });
-
-  try {
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          email,
-          password,
-          role
-      })
-    });
-
-    console.log('Response status:', response.status);
-    const data = await response.json();
-    console.log('Response data:', data);
-
-    if (response.ok) {
-        localStorage.setItem('token', data.token);
-        window.location.href = `${role}-dashboard.html`;
-    } else {
-        alert(data.message);
-    }
-  } catch (error) {
-      console.error('Login error:', error);
-      alert('An error occurred during login');
-  }
 }

@@ -1,20 +1,29 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth');
+const connectDB = require('./config/db');
 
 const app = express();
-app.use(cors());
+
+// Middleware
+app.use(cors({
+    origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const PORT = 5000;
-const MONGO_URI ='mongodb://localhost:27017/farmMarket';
+// Connect to MongoDB
+connectDB();
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.error('MongoDB Connection Error:', err));
-
-
-const authRoutes = require('./routes/auth');
+// Routes
 app.use('/api/auth', authRoutes);
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Start server
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
