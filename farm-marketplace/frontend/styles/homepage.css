@@ -3,26 +3,17 @@ body{
   font-family: Noto Sans, sans-serif
 }
 
-.background-blur{
+.background-image{
   width: 100%;
-  height: 100vh;
-  background-color: black;
-  opacity:30%;
 }
 
 .homepage{
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-image: url("../images/pexels-alejandro-barron-21404-96715.jpg");
-  background-size: 100% 150vh;
-  background-position: center top;
-  background-repeat: no-repeat;
 }
 
 .tag-line{
   position: absolute;
-  top: 25%;
+  top: 200px;
   left: 30px;
   width: 600px;
 }
@@ -102,6 +93,7 @@ body{
   display: flex;
   gap: 20px;
   flex-wrap: nowrap;
+  scroll-behavior: smooth;
 }
 
 .card {
@@ -216,32 +208,4 @@ body{
 
 .gallery-container img:hover{
   transform: translateY(-5px);
-}
-
-
-
-.pages {
-  text-decoration: none;
-  font-weight: normal;
-  color: inherit; /* Keeps default color */
-  position: relative;
-}
-
-.pages::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px; /* Adjusts the underline position */
-  width: 0;
-  height: 2px; /* Thickness of the underline */
-  background-color: green;
-  transition: width 0.3s ease-in-out;
-}
-
-.pages:hover {
-  font-weight: bold;
-}
-
-.pages:hover::after {
-  width: 100%;
 }
