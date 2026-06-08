@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const router = express.Router();
-const JWT_SECRET = '01abf825a1ebef8f06cc7a4c3326ebd353c1e19b971bc05f03fdf8013ab057d33438efe81c329f857e63df5d6eff58c8b1e849d643827633c1fbbd71c291abaf';
 
 // Signup Route
 router.post('/signup', async (req, res) => {
@@ -59,7 +58,7 @@ router.post('/login', async (req, res) => {
         // Create JWT token
         const token = jwt.sign(
             { userId: user._id, role: user.role },
-            JWT_SECRET,
+            process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );
 
@@ -78,6 +77,5 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
 
 module.exports = router;

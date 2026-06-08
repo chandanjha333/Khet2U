@@ -34,3 +34,5 @@ async function handleLogin(event, role) {
       alert('An error occurred during login');
   }
 }
+
+module.exports = handleLogin;
