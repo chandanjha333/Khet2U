@@ -1,19 +1,27 @@
-const token = localStorage.getItem('token');
-
-if (token) {
-  document.getElementById('login-button').style.display = 'none';
-  document.getElementById('signup-button').style.display = 'none';
-  document.getElementById('profile-menu').style.display = 'block';
-
-  // Fetch user details
-  fetch('/api/user/profile', {
-    headers: { Authorization: `Bearer ${token}` }
+fetch('/api/me', { credentials: 'include' })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Not logged in');
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      document.getElementById('username').innerText = data.name;
-    });
+  .then(user => {
+    // show profile icon, hide login/signup
+    document.getElementById('login-button').style.display = 'none';
+    document.getElementById('signup-button').style.display = 'none';
+    document.getElementById('profile-menu').classList.remove('hidden');
+    document.getElementById('username').innerText = user.name;
+  })
+  .catch(() => {
+    // show login/signup buttons
+    document.getElementById('login-button').style.display = 'inline-block';
+    document.getElementById('signup-button').style.display = 'inline-block';
+    document.getElementById('profile-menu').style.display = 'none';
+    document.getElementById('profile-icon').style.display = 'none';
+  });
+
+function logout() {
+  fetch('/api/logout', { method: 'POST', credentials: 'include' })
+    .then(() => window.location.href = '/')
+    .catch(err => console.log(err));
 }
 
 function toggleDropdown() {
@@ -22,7 +30,4 @@ function toggleDropdown() {
 
 document.getElementById('profile-icon').onclick = toggleDropdown;
 
-function logout() {
-  localStorage.removeItem('token');
-  window.location.href = '/';
-}
+document.getElementById('logout-btn').onclick = logout;

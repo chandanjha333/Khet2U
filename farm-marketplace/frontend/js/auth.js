@@ -105,14 +105,13 @@ async function handleLogin(event, role) {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(userData)
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('userRole', role);
             window.location.href = '/';
         } else {
             alert(data.message || 'Login failed. Please check your credentials.');

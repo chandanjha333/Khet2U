@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -58,20 +59,14 @@ router.post('/login', async (req, res) => {
 
         // Create JWT token
         const token = jwt.sign(
-            { userId: user._id, role: user.role },
+            {user: user},
             process.env.JWT_SECRET,
-            { expiresIn: '24h' }
         );
 
+        res.cookie("token", token);
         res.json({
-            token,
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role
-            }
-        });
+            "message": "Successful",
+        })
 
     } catch (error) {
         console.error("Login error:", error);
