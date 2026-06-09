@@ -113,7 +113,7 @@ async function handleLogin(event, role) {
         if (response.ok) {
             localStorage.setItem('token', data.token);
             localStorage.setItem('userRole', role);
-            window.location.href = 'homepage.html';
+            window.location.href = '/';
         } else {
             alert(data.message || 'Login failed. Please check your credentials.');
         }

@@ -20,16 +20,28 @@
   <body>
     <header class="header">
       <div class="left-section">
-        <a href="homepage.html" class="text">Khet2u</a>
+        <a href="/" class="text">Khet2u</a>
       </div>
       <div class="middle-section">
-        <a href="homepage.html" class="pages" >Home</a>
-        <a href="products.html" class="pages">Products</a>
-        <a href="contactus.html" class="pages">Contact Us</a>
+        <a href="/" class="pages" >Home</a>
+        <a href="/products" class="pages">Products</a>
+        <a href="/contactus" class="pages">Contact Us</a>
       </div>
       <div class="right-section">
-        <button class="login-button login-button-js">Log in</button>
-        <button class="signup-button signup-button-js">Sign Up</button>
+        <button class="login-button login-button-js" id="login-button">Log in</button>
+        <button class="signup-button signup-button-js" id="signup-button">Sign Up</button>
+        <div class="profile-container hidden" id="profile-menu">
+          <img 
+            src="assets/user-profile-avatar-free-vector.jpg" 
+            id="profile-icon" 
+            class="profile-image"
+          >
+          <div id="dropdown" class="dropdown hidden">
+            <p id="username" class="user-name"></p>
+            <a href="/profile">My Profile</a>
+            <button class="login-button" onclick="logout()">Logout</a>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -165,10 +177,10 @@
             <div class="footer-section">
               <h3>Quick Links</h3>
               <ul class="footer-links">
-                <li><a href="homepage.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Our Farmers</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="/products">Products</a></li>
                 <li><a href="cart.html">Cart</a></li>
               </ul>
             </div>
@@ -206,5 +218,6 @@
     </div>
 
     <script src="js/homepage.js"></script>
+    <script src="js/navbar.js"></script>
   </body>
 </html>

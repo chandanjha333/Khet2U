@@ -33,13 +33,13 @@ window.addEventListener('scroll', updateHeader);
 updateHeader();
 
 document.querySelector('.login-button-js').onclick = () => {
-  window.location.href = 'login-page.html'
+  window.location.href = '/login'
 }
 
 document.querySelector('.signup-button-js').onclick = () => {
-  window.location.href = 'signup.html'
+  window.location.href = '/signup'
 }
 
 document.querySelector('.explore-button-js').onclick = () => {
-  window.location.href = 'products.html'
+  window.location.href = '/products'
 }
