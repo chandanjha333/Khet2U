@@ -32,7 +32,8 @@ const verifyToken = (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Not authorized' });
 
   try {
-    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = jwt.verify(token, process.env.JWT_SECRET).user;
+    console.log(req.user);
     next();
   } catch(err) {
     console.log('err:', err);
@@ -65,7 +66,8 @@ app.get('/contacts', (req, res) => {
 });
 
 app.get('/api/me', verifyToken, async (req, res) => {
-  res.json({ name: req.user.name, email: req.user.email });
+  const user = await User.findById(req.user._id);
+  res.json({ name: user.name, email: user.email });
 });
 
 app.post('/api/logout', (req, res) => {
