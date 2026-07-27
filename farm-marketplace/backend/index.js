@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const connectDB = require('./config/db');
 const User = require('./models/User');
+const ratelimiter = require('./middleware/ratelimiter');
 
 const app = express();
 const PORT = process.env.PORT || 5500;
@@ -44,33 +45,34 @@ const verifyToken = (req, res, next) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(ratelimiter(100, 60));
 
-app.get('/', (req, res) => {
+app.get('/', ratelimiter(30, 60), (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'homepage.html'));
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', ratelimiter(30, 60), (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'login.html'));
 });
 
-app.get('/signup', (req, res) => {
+app.get('/signup', ratelimiter(30, 60), (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'signup.html'));
 });
 
-app.get('/products', (req, res) => {
+app.get('/products', ratelimiter(30, 60), (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'products.html'));
 });
 
-app.get('/contacts', (req, res) => {
+app.get('/contacts', ratelimiter(30, 60), (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'contactus.html'));
 });
 
-app.get('/api/me', verifyToken, async (req, res) => {
+app.get('/api/me', ratelimiter(5, 60), verifyToken, async (req, res) => {
   const user = await User.findById(req.user._id);
   res.json({ name: user.name, email: user.email });
 });
 
-app.post('/api/logout', (req, res) => {
+app.post('/api/logout', ratelimiter(5, 60), (req, res) => {
   res.clearCookie('token');
   res.json({ success: true });
 });
